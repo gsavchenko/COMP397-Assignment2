@@ -8,7 +8,7 @@ var objects;
     var Laser = (function (_super) {
         __extends(Laser, _super);
         function Laser() {
-            _super.call(this, "laser");
+            _super.call(this, "laser", "");
             this._speed = 15;
         }
         Laser.prototype.start = function () {

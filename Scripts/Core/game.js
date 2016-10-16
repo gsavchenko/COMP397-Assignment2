@@ -10,11 +10,21 @@ var scene;
 var collision;
 // Preload Assets required
 var assetData = [
-    { id: "Space_BG", src: "../../Assets/images/bg.png" },
-    { id: "Menu_BG", src: "../../Assets/images/menuBG.png" },
-    { id: "PlayBtn", src: "../../Assets/images/playBtn.png" },
+    { id: "Game_BG", src: "../../Assets/images/game_background.png" },
+    { id: "Mouth_Lips", src: "../../Assets/images/mouth_lips.png" },
+    { id: "Mouth_Back", src: "../../Assets/images/mouth_back.png" },
+    { id: "Game_BG", src: "../../Assets/images/game_background.png" },
+    { id: "Menu_BG", src: "../../Assets/images/menu_background.png" },
+    { id: "Menu_Button", src: "../../Assets/images/menu_button.png" },
     { id: "Laser", src: "../../Assets/images/laser.png" },
-    { id: "Player", src: "../../Assets/images/shipAtlas.png" }
+    { id: "Player", src: "../../Assets/images/shipAtlas.png" },
+    { id: "Teeth_Top_Back", src: "../../Assets/images/top_back.png" },
+    { id: "Teeth_Top_Middle", src: "../../Assets/images/top_middle.png" },
+    { id: "Teeth_Top_Front", src: "../../Assets/images/top_front.png" },
+    { id: "Teeth_Bottom_Back", src: "../../Assets/images/bottom_back.png" },
+    { id: "Teeth_Bottom_Middle", src: "../../Assets/images/bottom_middle.png" },
+    { id: "Teeth_Bottom_Front", src: "../../Assets/images/bottom_front.png" },
+    { id: "Cursor", src: "../../Assets/images/cursor.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded

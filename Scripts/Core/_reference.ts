@@ -13,6 +13,9 @@
 /// <reference path="../objects/gameobject.ts" />
 /// <reference path="../objects/vector2.ts" />
 /// <reference path="../objects/laser.ts" />
+/// <reference path="../objects/moon.ts" />
+/// <reference path="../objects/meteor.ts" />
+/// <reference path="../objects/meteor_factory.ts" />
 
 /// <reference path="../managers/collision.ts" />
 

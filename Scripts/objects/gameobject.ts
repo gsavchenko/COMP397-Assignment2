@@ -5,13 +5,6 @@ module objects {
         private _name:string;
         private _position:Vector2;
 
-        private _TRCorner:Vector2;
-        private _TLCorner:Vector2;
-        private _BRCorner:Vector2;
-        private _BLCorner:Vector2
-
-        private _deathAnim:string;
-
         // PUBLIC PROPERTIES
         get width() : number {
             return this._width
@@ -45,26 +38,8 @@ module objects {
             this._position = p;
         }
 
-        get tr_corner() : Vector2 {
-            return new objects.Vector2(this.x + this.width * 0.5, this.y - this.height * 0.5);
-        }
-
-        get tl_corner() : Vector2 {
-            return new objects.Vector2(this.x - this.width * 0.5, this.y - this.height * 0.5);
-        }
-
-        get br_corner() : Vector2 {
-            return new objects.Vector2(this.x + this.width * 0.5, this.y + this.height * 0.5);
-        }
-
-        get bl_corner() : Vector2 {
-            return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
-        }
-
-        constructor(imageString : string, deathAnimString) {
-            super(shipAtlas, imageString);
-
-            this._deathAnim = deathAnimString;
+        constructor(atlas: createjs.SpriteSheet, imageString : string, deathAnimString) {
+            super(atlas, imageString);
 
             this._initialize(imageString);
             this.start();
@@ -74,24 +49,12 @@ module objects {
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.regX = this.width / 2;
-            this.regY = this.height / 2;
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
             this.position = new Vector2(this.x, this.y);
         }
 
         public start():void {}
-        public update():void {
-            this.x = this.position.x;
-            this.y = this.position.y;
-
-            if(this.currentAnimationFrame == shipAtlas.getNumFrames("explode") - 1) {
-                currentScene.removeChild(this);
-            }
-        }
-
-        public destroy() : void {
-            this.gotoAndPlay(this._deathAnim);
-            // currentScene.removeChild(this);
-        }
+        public update():void {}
     }
 }

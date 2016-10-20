@@ -7,9 +7,8 @@ var objects;
 (function (objects) {
     var GameObject = (function (_super) {
         __extends(GameObject, _super);
-        function GameObject(imageString, deathAnimString) {
-            _super.call(this, shipAtlas, imageString);
-            this._deathAnim = deathAnimString;
+        function GameObject(atlas, imageString, deathAnimString) {
+            _super.call(this, atlas, imageString);
             this._initialize(imageString);
             this.start();
         }
@@ -54,54 +53,16 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(GameObject.prototype, "tr_corner", {
-            get: function () {
-                return new objects.Vector2(this.x + this.width * 0.5, this.y - this.height * 0.5);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "tl_corner", {
-            get: function () {
-                return new objects.Vector2(this.x - this.width * 0.5, this.y - this.height * 0.5);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "br_corner", {
-            get: function () {
-                return new objects.Vector2(this.x + this.width * 0.5, this.y + this.height * 0.5);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "bl_corner", {
-            get: function () {
-                return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
-            },
-            enumerable: true,
-            configurable: true
-        });
         GameObject.prototype._initialize = function (imageString) {
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.regX = this.width / 2;
-            this.regY = this.height / 2;
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
             this.position = new objects.Vector2(this.x, this.y);
         };
         GameObject.prototype.start = function () { };
-        GameObject.prototype.update = function () {
-            this.x = this.position.x;
-            this.y = this.position.y;
-            if (this.currentAnimationFrame == shipAtlas.getNumFrames("explode") - 1) {
-                currentScene.removeChild(this);
-            }
-        };
-        GameObject.prototype.destroy = function () {
-            this.gotoAndPlay(this._deathAnim);
-            // currentScene.removeChild(this);
-        };
+        GameObject.prototype.update = function () { };
         return GameObject;
     }(createjs.Sprite));
     objects.GameObject = GameObject;

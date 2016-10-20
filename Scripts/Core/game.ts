@@ -6,7 +6,7 @@ var canvas: HTMLElement;
 var stage: createjs.Stage;
 
 var spriteSheetLoader : createjs.SpriteSheetLoader;
-var shipAtlas : createjs.SpriteSheet;
+var gameAtlas : createjs.SpriteSheet;
 
 var currentScene : objects.Scene;
 var scene: number;
@@ -29,13 +29,13 @@ var assetData:objects.Asset[] = [
     {id: "Teeth_Bottom_Back", src:"../../Assets/images/bottom_back.png"},
     {id: "Teeth_Bottom_Middle", src:"../../Assets/images/bottom_middle.png"},
     {id: "Teeth_Bottom_Front", src:"../../Assets/images/bottom_front.png"},
-    {id: "Cursor", src:"../../Assets/images/cursor.png"}
+    {id: "Cursor", src:"../../Assets/images/cursor.png"},
+    {id: "Spritesheet", src:"../../Assets/images/spritesheet.png"}
 ];
 
 function preload() {
     // Create a queue for assets being loaded
     assets = new createjs.LoadQueue(false);
-    // assets.installPlugin(createjs.Sound);
 
     // Register callback function to be run when assets complete loading.
     assets.on("complete", init, this);
@@ -54,33 +54,35 @@ function init() {
 
     let atlasData = {
         "images": [
-            assets.getResult("Player")
+            assets.getResult("Spritesheet")
         ],
 
         "frames": [
-            [1, 1, 180, 180, 0, 0, 0],
-            [183, 1, 176, 175, 0, 0, 0],
-            [361, 1, 172, 163, 0, 0, 0],
-            [535, 1, 166, 154, 0, 0, 0],
-            [703, 1, 157, 154, 0, 0, 0],
-            [862, 1, 122, 112, 0, 0, 0],
-            [862, 115, 129, 111, 0, 0, 0],
-            [535, 157, 69, 71, 0, 0, 0],
-            [361, 166, 50, 6, 0, 0, -17],
-            [413, 166, 42, 43, 0, 0, 0],
-            [361, 174, 42, 33, 0, 0, 0],
-            [457, 166, 42, 22, 0, 0, 0]
+            [12, 8, 31, 42, 0], // player stand
+            [41, 8, 48, 43, 0], // player jump
+            [14, 56, 31, 42, 0], // move left
+            [51, 55, 31, 42, 0], // move right
+            [100, 7, 102, 132, 0], // meteor 1
+            [211, 7, 106, 139, 0], // meteor 2
+            [326, 7, 108, 135, 0], // meteor 3
+            [443, 7, 100, 137, 0], // meteor 4
+            [14, 157, 78, 73, 0], // explosion 1
+            [103, 154, 99, 79, 0], // explosion 2
+            [213, 153, 42, 33, 0], // explosion 3
+            [317, 149, 93, 90, 0], // explosion 4
+            [421, 164, 97, 69, 0], // explosion 5
+            [529, 163, 71, 60, 0], // explosion 6
+            [15, 245, 672, 163, 0] // moon
         ],
 
-        "animations": {
-            "explode": {
-                "frames": [7,6,3,0,1,2,4], "speed": 0.1, next: false
-            },
-            "enemy": { "frames": [5] },
-            "laser": { "frames": [8] },
-            "ship": { "frames": [9] },
-            "ship_L1": { "frames": [10] },
-            "ship_L2": { "frames": [11] }
+        "animations": { // define animations
+            "player_stand": { "frames":[0]}, // idle
+            "player_jump": { "frames":[1]}, // jump
+            "player_move_left":{"frames":[2,0,3,0], "speed":0.2, "next":false}, // move left
+            "player_move_right":{"frames":[3,0,2,0], "speed":0.2, "next":false}, // move right
+            "meteor":{"frames":[4,5,6,7], "speed":0.2, "next":true}, // meteor
+            "explosion":{"frames":[8,9,10,11,12,13], "speed":0.2, "next":false}, // explosion
+            "moon":{"frames":[14]} // moon
         },
 
         "texturepacker": [
@@ -89,7 +91,7 @@ function init() {
         ]
     }
 
-    shipAtlas = new createjs.SpriteSheet(atlasData);
+    gameAtlas = new createjs.SpriteSheet(atlasData);
     scene = config.Scene.MENU;
     changeScene();
 }

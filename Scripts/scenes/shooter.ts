@@ -4,7 +4,8 @@ module scenes {
         private _bg : createjs.Bitmap;
         private _mouth_lips : createjs.Bitmap;
         private _mouth_back: createjs.Bitmap;
-        private _teeth_top_back_left: createjs.Bitmap;
+
+        private _teeth_top_back_left: objects.Tooth;
         private _teeth_top_left_left: createjs.Bitmap;
         private _teeth_top_left_right: createjs.Bitmap;
         private _teeth_top_front_left: createjs.Bitmap;
@@ -38,10 +39,13 @@ module scenes {
             this._mouth_back.y = 238; 
             this.addChild(this._mouth_back); 
             
-            this._teeth_top_back_left = new createjs.Bitmap(assets.getResult("Teeth_Top_Back"));
+            this._teeth_top_back_left = new objects.Tooth("tooth");
             this._teeth_top_back_left.x = 148;
             this._teeth_top_back_left.y = 235;
             this.addChild(this._teeth_top_back_left);
+
+            //this._ship = new objects.Player("ship");
+            //this.addChild(this._ship);
 
             this._teeth_top_left_left = new createjs.Bitmap(assets.getResult("Teeth_Top_Middle"));
             this._teeth_top_left_left.x = 171;

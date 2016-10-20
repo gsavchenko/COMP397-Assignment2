@@ -17,16 +17,23 @@ var scenes;
         }
         Menu.prototype.start = function () {
             console.log("Menu Scene Started");
+            // Add metero to the menu scene
+            //this._meteor = new objects.Meteor("meteor");
+            //this.addChild(this._meteor);
+            this._mf = new objects.Meteor_Factory(0, 0, 100, 600);
+            //this.addChild(this._mf);
+            // Add moon to menu scene
+            this._moon = new objects.Moon("moon", 330, 500);
+            this.addChild(this._moon);
             this._playBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X, config.Screen.CENTER_Y + 200);
             this.addChild(this._playBtn);
             this._playBtn.on("click", this._playBtnClick, this);
-            this._menuBG = new createjs.Bitmap(assets.getResult("Menu_BG"));
-            // this.addChild(this._menuBG);
-            this.addChildAt(this._menuBG, 0);
             // Add menu scene to global stage container
             stage.addChild(this);
         };
         Menu.prototype.update = function () {
+            //this._meteor.update();
+            //this._mf.update();
         };
         Menu.prototype._playBtnClick = function (event) {
             scene = config.Scene.SHOOTER;

@@ -23,7 +23,9 @@ module scenes {
 
             this._mf = new objects.Meteor_Factory();
 
-            this.addChild(this._mf._meteor);
+            this._mf._meteorList.forEach(element => {
+                this.addChild(element);
+            });
 
             //this.amountOnScreen = 3;
 
@@ -44,7 +46,7 @@ module scenes {
         }
 
         public update() : void {
-            //this._meteor.update();
+            this._mf.update();
         }
 
         private _playBtnClick(event : createjs.MouseEvent) {

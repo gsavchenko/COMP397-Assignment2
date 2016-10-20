@@ -9,6 +9,7 @@ module objects {
         constructor(imageString:string, posX : number, posY: number) {
             super(gameAtlas, imageString, "");
             this.id ++;
+            this.name = "meteor";
             this.x = posX;
             this.y = posY;
             console.log("Meteor: " + this.id + " made");

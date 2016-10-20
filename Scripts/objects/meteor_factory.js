@@ -14,23 +14,25 @@ var objects;
         Meteor_Factory.prototype.start = function () {
             // initialize variables here
             this._amountOnScreen = 3;
-            //this._meteorList[3];
+            this._meteorList = new Array();
             //this._meteorList.length = 3;
             this.x = 50;
             this.y = 100;
-            this.height = 200;
+            this.height = 100;
             this.width = 500;
-            for (var x = 0; x < this._amountOnScreen; x++) {
-                //this._meteorList[x] = new objects.Meteor("meteor",100,100);
-                this._createMeteor();
-            }
+            this._createMeteor();
         };
         Meteor_Factory.prototype.update = function () {
+            this._meteorList.forEach(function (meteor) {
+                meteor.update();
+            });
         };
         Meteor_Factory.prototype._createMeteor = function () {
-            var posX = this._getRandNum(this.x, (this.x + this.width));
-            var posY = this._getRandNum(this.y, (this.y + this.height));
-            this._meteor = new objects.Meteor("meteor", posX, posY);
+            for (var x = 0; x < this._amountOnScreen; x++) {
+                var posX = this._getRandNum(this.x, (this.x + this.width));
+                var posY = this._getRandNum(this.y, (this.y + this.height));
+                this._meteorList.push(new objects.Meteor("meteor", posX, posY));
+            }
         };
         Meteor_Factory.prototype._getRandNum = function (min, max) {
             return Math.floor(Math.random() * max) + min;

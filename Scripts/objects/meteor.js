@@ -12,6 +12,7 @@ var objects;
             _super.call(this, gameAtlas, imageString, "");
             this._speed = 3;
             this.id++;
+            this.name = "meteor";
             this.x = posX;
             this.y = posY;
             console.log("Meteor: " + this.id + " made");

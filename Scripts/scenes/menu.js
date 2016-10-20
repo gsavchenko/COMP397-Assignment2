@@ -17,9 +17,12 @@ var scenes;
             this.amountOnScreen = 3; // amount of meteors allowed on canvas at once
         }
         Menu.prototype.start = function () {
+            var _this = this;
             console.log("Menu Scene Started");
             this._mf = new objects.Meteor_Factory();
-            this.addChild(this._mf._meteor);
+            this._mf._meteorList.forEach(function (element) {
+                _this.addChild(element);
+            });
             //this.amountOnScreen = 3;
             //for(var x = 0; x < this.amountOnScreen; x ++){
             //this._createMeteor();
@@ -34,7 +37,7 @@ var scenes;
             stage.addChild(this);
         };
         Menu.prototype.update = function () {
-            //this._meteor.update();
+            this._mf.update();
         };
         Menu.prototype._playBtnClick = function (event) {
             scene = config.Scene.SHOOTER;

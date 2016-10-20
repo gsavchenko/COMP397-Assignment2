@@ -2,17 +2,17 @@ module objects {
     export class Meteor extends objects.GameObject {
         
         // Private variables
+        public static id : number = 0;
         private _speed : number = 3;
 
         // Create moon from gameAtlas which stores animation frames
-        constructor(imageString:string) {
+        constructor(imageString:string, posX : number, posY: number) {
             super(gameAtlas, imageString, "");
-            this.x = this._getRandNum(50, 600);
-            this.y = 100;
-        }
-
-        private _getRandNum(min : number, max : number) : number {
-            return Math.floor(Math.random() * max) + min;
+            this.id ++;
+            this.x = posX;
+            this.y = posY;
+            console.log("Meteor: " + this.id + " made");
+            console.log("x: " + this.x + " y " + this.y);
         }
 
         public update() : void {

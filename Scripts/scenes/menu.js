@@ -14,14 +14,16 @@ var scenes;
         // Menu Class Contructor
         function Menu() {
             _super.call(this);
+            this.amountOnScreen = 3; // amount of meteors allowed on canvas at once
         }
         Menu.prototype.start = function () {
             console.log("Menu Scene Started");
-            // Add metero to the menu scene
-            //this._meteor = new objects.Meteor("meteor");
-            //this.addChild(this._meteor);
-            this._mf = new objects.Meteor_Factory(0, 0, 100, 600);
-            //this.addChild(this._mf);
+            this._mf = new objects.Meteor_Factory();
+            this.addChild(this._mf._meteor);
+            //this.amountOnScreen = 3;
+            //for(var x = 0; x < this.amountOnScreen; x ++){
+            //this._createMeteor();
+            //}
             // Add moon to menu scene
             this._moon = new objects.Moon("moon", 330, 500);
             this.addChild(this._moon);
@@ -33,7 +35,6 @@ var scenes;
         };
         Menu.prototype.update = function () {
             //this._meteor.update();
-            //this._mf.update();
         };
         Menu.prototype._playBtnClick = function (event) {
             scene = config.Scene.SHOOTER;

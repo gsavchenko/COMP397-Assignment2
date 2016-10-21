@@ -30,14 +30,20 @@ var scenes;
             // Add moon to menu scene
             this._moon = new objects.Moon("moon", 330, 500);
             this.addChild(this._moon);
-            this._playBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X, config.Screen.CENTER_Y + 200);
+            this._playBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X + 30, config.Screen.CENTER_Y - 50);
             this.addChild(this._playBtn);
             this._playBtn.on("click", this._playBtnClick, this);
             // Add menu scene to global stage container
             stage.addChild(this);
         };
         Menu.prototype.update = function () {
+            var _this = this;
             this._mf.update();
+            this._mf._meteorList.forEach(function (element) {
+                _this.addChild(element);
+            });
+            this.addChild(this._moon);
+            this.addChild(this._playBtn);
         };
         Menu.prototype._playBtnClick = function (event) {
             scene = config.Scene.SHOOTER;

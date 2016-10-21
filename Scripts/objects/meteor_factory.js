@@ -13,25 +13,35 @@ var objects;
         }
         Meteor_Factory.prototype.start = function () {
             // initialize variables here
-            this._amountOnScreen = 3;
+            this._amountOnScreen = 4;
             this._meteorList = new Array();
             //this._meteorList.length = 3;
             this.x = 50;
-            this.y = 100;
-            this.height = 100;
+            this.y = -300;
+            this.height = 500;
             this.width = 500;
-            this._createMeteor();
+            this.timer = 0;
+            this._createMeteor(this._amountOnScreen);
         };
+        // this could be better (contines updating after scene switch and doesn't need to check death every frame)
         Meteor_Factory.prototype.update = function () {
-            this._meteorList.forEach(function (meteor) {
-                meteor.update();
-            });
+            this.timer += createjs.Ticker.interval;
+            //console.log(this.timer);
+            for (var x = 0; x < this._meteorList.length; x++) {
+                this._meteorList[x].update();
+                if (this._meteorList[x].isDead) {
+                    currentScene.removeChild(this._meteorList[x]);
+                    this._meteorList.splice(x, 1);
+                    this._createMeteor(1);
+                }
+            }
         };
-        Meteor_Factory.prototype._createMeteor = function () {
-            for (var x = 0; x < this._amountOnScreen; x++) {
+        Meteor_Factory.prototype._createMeteor = function (amount) {
+            for (var x = 0; x < amount; x++) {
                 var posX = this._getRandNum(this.x, (this.x + this.width));
                 var posY = this._getRandNum(this.y, (this.y + this.height));
-                this._meteorList.push(new objects.Meteor("meteor", posX, posY));
+                var speed = this._getRandNum(3, 6);
+                this._meteorList.push(new objects.Meteor("meteor", posX, posY, speed));
             }
         };
         Meteor_Factory.prototype._getRandNum = function (min, max) {

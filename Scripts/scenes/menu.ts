@@ -37,7 +37,7 @@ module scenes {
             this._moon = new objects.Moon("moon", 330, 500);
             this.addChild(this._moon);
 
-            this._playBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X, config.Screen.CENTER_Y + 200);
+            this._playBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X + 30, config.Screen.CENTER_Y - 50);
             this.addChild(this._playBtn);
             this._playBtn.on("click", this._playBtnClick, this);
 
@@ -47,6 +47,13 @@ module scenes {
 
         public update() : void {
             this._mf.update();
+
+            this._mf._meteorList.forEach(element => {
+                this.addChild(element);
+            });
+
+            this.addChild(this._moon);
+                        this.addChild(this._playBtn);
         }
 
         private _playBtnClick(event : createjs.MouseEvent) {

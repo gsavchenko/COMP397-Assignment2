@@ -8,19 +8,23 @@ var objects;
     var Meteor = (function (_super) {
         __extends(Meteor, _super);
         // Create moon from gameAtlas which stores animation frames
-        function Meteor(imageString, posX, posY) {
+        function Meteor(imageString, posX, posY, speed) {
             _super.call(this, gameAtlas, imageString, "");
-            this._speed = 3;
+            this._speed = 4;
             this.id++;
             this.name = "meteor";
             this.x = posX;
             this.y = posY;
+            this._speed = speed;
+            this.isDead = false;
             console.log("Meteor: " + this.id + " made");
-            console.log("x: " + this.x + " y " + this.y);
+            console.log("x: " + this.x + " y " + this.y + " speed: " + this._speed);
         }
         Meteor.prototype.update = function () {
             console.log("update");
             this.y = this.y + this._speed;
+            if (this.y > 580)
+                this.isDead = true;
         };
         // Private variables
         Meteor.id = 0;

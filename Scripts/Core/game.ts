@@ -59,7 +59,7 @@ function init() {
 
         "frames": [
             [12, 8, 31, 42, 0], // player stand
-            [41, 8, 48, 43, 0], // player jump
+            [43, 8, 48, 43, 0], // player jump
             [14, 56, 31, 42, 0], // move left
             [51, 55, 31, 42, 0], // move right
             [100, 7, 102, 132, 0], // meteor 1

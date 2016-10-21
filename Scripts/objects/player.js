@@ -15,6 +15,10 @@ var objects;
             this._rightAnimationStarted = false;
             this._fallSpeed = 2;
             this._falling = true;
+            this._jumpTimer = 0;
+            this._isJumping = false;
+            this.collideLeft = false;
+            this.collideRight = false;
             this._shots = [];
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -35,9 +39,6 @@ var objects;
         Player.prototype.update = function () {
             _super.prototype.update.call(this);
             this._timer += createjs.Ticker.interval;
-            if (controls.DOWN) {
-                this.moveDown();
-            }
             if (controls.RIGHT) {
                 this.moveRight();
             }
@@ -51,7 +52,7 @@ var objects;
                 var laser = _a[_i];
                 laser.update();
             }
-            if (!controls.LEFT && !controls.RIGHT) {
+            if (!controls.LEFT && !controls.RIGHT && !controls.JUMP) {
                 this._leftAnimationStarted = false;
                 this._rightAnimationStarted = false;
                 this.gotoAndPlay("player_stand");
@@ -61,10 +62,6 @@ var objects;
         };
         Player.prototype._onKeyDown = function (event) {
             switch (event.keyCode) {
-                case keys.S:
-                    console.log("S key pressed");
-                    controls.DOWN = true;
-                    break;
                 case keys.A:
                     console.log("A key pressed");
                     controls.LEFT = true;
@@ -80,9 +77,6 @@ var objects;
         };
         Player.prototype._onKeyUp = function (event) {
             switch (event.keyCode) {
-                case keys.S:
-                    controls.DOWN = false;
-                    break;
                 case keys.A:
                     controls.LEFT = false;
                     break;
@@ -94,25 +88,36 @@ var objects;
                     break;
             }
         };
-        Player.prototype.moveDown = function () {
-            this.y += 5;
-        };
         Player.prototype.moveLeft = function () {
             if (!this._leftAnimationStarted && controls.LEFT) {
                 this._leftAnimationStarted = true;
                 this.gotoAndPlay("player_move_left");
             }
-            this.x -= 5;
+            if (this.collideLeft) {
+                this.x -= 5;
+                this.y -= 4;
+            }
+            else
+                this.x -= 5;
         };
         Player.prototype.moveRight = function () {
             if (!this._rightAnimationStarted && controls.RIGHT) {
                 this._rightAnimationStarted = true;
                 this.gotoAndPlay("player_move_left");
             }
-            this.x += 5;
+            if (this.collideRight) {
+                this.x += 5;
+                this.y -= 4;
+            }
+            else
+                this.x += 5;
         };
         Player.prototype.jump = function () {
-            this.y -= 5;
+            if (this._jumpTimer <= 25) {
+                this._jumpTimer++;
+                this.gotoAndPlay("player_jump");
+                this.y -= 8;
+            }
         };
         return Player;
     }(objects.GameObject));

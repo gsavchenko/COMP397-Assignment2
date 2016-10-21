@@ -10,6 +10,10 @@ module objects {
         private _rightAnimationStarted : boolean = false;
         private _fallSpeed : number = 2;
         public _falling : boolean = true;
+        public _jumpTimer : number = 0;
+        private _isJumping : boolean = false;
+        public collideLeft : boolean = false;
+        public collideRight : boolean = false;
 
         // PUBLIC VARIABLES
         public name:string;
@@ -43,10 +47,6 @@ module objects {
             super.update();
 
             this._timer += createjs.Ticker.interval;
-            
-            if(controls.DOWN) {
-                this.moveDown();
-            }
 
             if(controls.RIGHT) {
                 this.moveRight();
@@ -63,7 +63,7 @@ module objects {
                 laser.update();
             }
 
-            if(!controls.LEFT && !controls.RIGHT){
+            if(!controls.LEFT && !controls.RIGHT && !controls.JUMP){
                 this._leftAnimationStarted = false;
                 this._rightAnimationStarted = false;
                 this.gotoAndPlay("player_stand");
@@ -75,10 +75,6 @@ module objects {
 
         private _onKeyDown(event : KeyboardEvent) {
             switch(event.keyCode) {
-                case keys.S:
-                    console.log("S key pressed");
-                    controls.DOWN = true;
-                    break;
                 case keys.A:
                     console.log("A key pressed");
                     controls.LEFT = true;
@@ -95,9 +91,6 @@ module objects {
 
         private _onKeyUp(event : KeyboardEvent) {
              switch(event.keyCode) {
-                case keys.S:
-                    controls.DOWN = false;
-                    break;
                 case keys.A:
                     controls.LEFT = false;
                     break;
@@ -110,10 +103,6 @@ module objects {
             }
         }
 
-        public moveDown() {
-            this.y += 5;
-        }
-
         public moveLeft() {
             if(!this._leftAnimationStarted && controls.LEFT)
             {
@@ -121,20 +110,36 @@ module objects {
                 this.gotoAndPlay("player_move_left");
             }
 
-            this.x -= 5;
+            if(this.collideLeft){
+                this.x -= 5;
+                this.y -= 4;
+            }
+            else
+                this.x -=5;
         }
 
         public moveRight() {
-            if(!this._rightAnimationStarted && controls.RIGHT)
-            {
-                this._rightAnimationStarted = true;
-                this.gotoAndPlay("player_move_left");
+                if(!this._rightAnimationStarted && controls.RIGHT)
+                {
+                    this._rightAnimationStarted = true;
+                    this.gotoAndPlay("player_move_left");
+                }
+
+            if(this.collideRight){
+                this.x += 5;
+                this.y -= 4;
             }
-            this.x += 5;
+            else
+                this.x += 5;
         }
 
         public jump() {
-            this.y -= 5;
+            if(this._jumpTimer <= 25)
+            {
+                this._jumpTimer ++;
+                this.gotoAndPlay("player_jump");
+                this.y -= 8;
+            }            
         }
     }
 }

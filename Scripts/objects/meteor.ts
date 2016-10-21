@@ -16,7 +16,6 @@ module objects {
             this.y = posY;
             this._speed = speed;
             this.isDead = false;
-
             console.log("Meteor: " + this.id + " made");
             console.log("x: " + this.x + " y " + this.y + " speed: " + this._speed);
         }

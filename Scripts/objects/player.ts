@@ -6,6 +6,10 @@ module objects {
 
         private _timeBetweenShots : number = 1;
         private _timer : number = 0;
+        private _leftAnimationStarted : boolean = false;
+        private _rightAnimationStarted : boolean = false;
+        private _fallSpeed : number = 2;
+        public _falling : boolean = true;
 
         // PUBLIC VARIABLES
         public name:string;
@@ -15,16 +19,20 @@ module objects {
         public centerY:number;
 
         constructor(imageString:string) {
-            super(imageString, "");
+            super(gameAtlas, imageString, "");
 
             this._shots = [];
 
-            //this.start();
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
             window.onkeydown = this._onKeyDown;
             window.onkeyup = this._onKeyUp;
+        }
+
+        public start() {
+            this.x = 320;
+            this.y = 390;
         }
 
         get getShots() : objects.Laser[] {
@@ -35,11 +43,6 @@ module objects {
             super.update();
 
             this._timer += createjs.Ticker.interval;
-
-
-            if(controls.UP) {
-                this.moveUp();
-            }
             
             if(controls.DOWN) {
                 this.moveDown();
@@ -52,28 +55,26 @@ module objects {
             if(controls.LEFT) {
                 this.moveLeft();
             }
-            if(controls.SHOOT && this._timer > 100.0) {
-                let newLaser = new objects.Laser();
-                newLaser.setPosition(new objects.Vector2(this.position.x + 25, this.position.y - 18));
-                currentScene.addChild(newLaser);
-                this._shots.push(newLaser);
-
-                this._timer = 0.0;
+            if(controls.JUMP ) {
+                this.jump();
             }
 
             for (let laser of this._shots) {
                 laser.update();
             }
 
-            console.log(this._timer);
+            if(!controls.LEFT && !controls.RIGHT){
+                this._leftAnimationStarted = false;
+                this._rightAnimationStarted = false;
+                this.gotoAndPlay("player_stand");
+            }
+
+            if(this._falling)
+                this.y += this._fallSpeed;
         }
 
         private _onKeyDown(event : KeyboardEvent) {
             switch(event.keyCode) {
-                case keys.W:
-                    console.log("W key pressed");
-                    controls.UP = true;
-                    break;
                 case keys.S:
                     console.log("S key pressed");
                     controls.DOWN = true;
@@ -87,16 +88,13 @@ module objects {
                     controls.RIGHT = true;
                     break;
                 case keys.SPACE:
-                    controls.SHOOT = true;
+                    controls.JUMP = true;
                     break;
             }
         }
 
         private _onKeyUp(event : KeyboardEvent) {
              switch(event.keyCode) {
-                case keys.W:
-                    controls.UP = false;
-                    break;
                 case keys.S:
                     controls.DOWN = false;
                     break;
@@ -107,25 +105,36 @@ module objects {
                     controls.RIGHT = false;
                     break;
                 case keys.SPACE:
-                    controls.SHOOT = false;
+                    controls.JUMP = false;
                     break;
             }
         }
 
-        public moveUp() {
-            this.position.y -= 5;
-        }
-
         public moveDown() {
-            this.position.y += 5;
+            this.y += 5;
         }
 
         public moveLeft() {
-            this.position.x -= 5;
+            if(!this._leftAnimationStarted && controls.LEFT)
+            {
+                this._leftAnimationStarted = true;
+                this.gotoAndPlay("player_move_left");
+            }
+
+            this.x -= 5;
         }
 
         public moveRight() {
-            this.position.x += 5;
+            if(!this._rightAnimationStarted && controls.RIGHT)
+            {
+                this._rightAnimationStarted = true;
+                this.gotoAndPlay("player_move_left");
+            }
+            this.x += 5;
+        }
+
+        public jump() {
+            this.y -= 5;
         }
     }
 }

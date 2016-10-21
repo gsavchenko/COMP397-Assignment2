@@ -12,6 +12,8 @@ var objects;
             _super.call(this, gameAtlas, imageString, "");
             this.x = posX;
             this.y = posY;
+            this.center = new objects.Vector2(320, 805);
+            this.radius = 400;
         }
         return Moon;
     }(objects.GameObject));

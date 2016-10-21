@@ -78,7 +78,7 @@ function init() {
         "animations": { // define animations
             "player_stand": { "frames":[0]}, // idle
             "player_jump": { "frames":[1]}, // jump
-            "player_move_left":{"frames":[2,0,3,0], "speed":0.2, "next":false}, // move left
+            "player_move_left":{"frames":[2,0,3,0], "speed":0.2, "next":true}, // move left
             "player_move_right":{"frames":[3,0,2,0], "speed":0.2, "next":false}, // move right
             "meteor":{"frames":[4,5,6,7], "speed":0.2, "next":true}, // meteor
             "explosion":{"frames":[8,9,10,11,12,13], "speed":0.2, "next":false}, // explosion
@@ -115,8 +115,8 @@ function changeScene() : void {
             break;
         case config.Scene.SHOOTER :
             stage.removeAllChildren();
-            currentScene = new scenes.Shooter();
-            console.log("Starting SHOOTER scene");
+            currentScene = new scenes.Play();
+            console.log("Starting PLAY scene");
             break;
     }
     

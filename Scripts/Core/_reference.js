@@ -16,5 +16,5 @@
 /// <reference path="../objects/meteor_factory.ts" />
 /// <reference path="../managers/collision.ts" />
 /// <reference path="../scenes/menu.ts" />
-/// <reference path="../scenes/shooter.ts" /> 
+/// <reference path="../scenes/play.ts" /> 
 //# sourceMappingURL=_reference.js.map

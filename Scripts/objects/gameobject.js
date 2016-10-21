@@ -53,6 +53,34 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(GameObject.prototype, "tr_corner", {
+            get: function () {
+                return new objects.Vector2(this.x + this.width * 0.5, this.y - this.height * 0.5);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "tl_corner", {
+            get: function () {
+                return new objects.Vector2(this.x - this.width * 0.5, this.y - this.height * 0.5);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "br_corner", {
+            get: function () {
+                return new objects.Vector2(this.x + this.width * 0.5, this.y + this.height * 0.5);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "bl_corner", {
+            get: function () {
+                return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
+            },
+            enumerable: true,
+            configurable: true
+        });
         GameObject.prototype._initialize = function (imageString) {
             this.name = imageString;
             this.width = this.getBounds().width;

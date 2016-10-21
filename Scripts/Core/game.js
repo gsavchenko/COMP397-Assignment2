@@ -66,7 +66,7 @@ function init() {
         "animations": {
             "player_stand": { "frames": [0] },
             "player_jump": { "frames": [1] },
-            "player_move_left": { "frames": [2, 0, 3, 0], "speed": 0.2, "next": false },
+            "player_move_left": { "frames": [2, 0, 3, 0], "speed": 0.2, "next": true },
             "player_move_right": { "frames": [3, 0, 2, 0], "speed": 0.2, "next": false },
             "meteor": { "frames": [4, 5, 6, 7], "speed": 0.2, "next": true },
             "explosion": { "frames": [8, 9, 10, 11, 12, 13], "speed": 0.2, "next": false },
@@ -97,8 +97,8 @@ function changeScene() {
             break;
         case config.Scene.SHOOTER:
             stage.removeAllChildren();
-            currentScene = new scenes.Shooter();
-            console.log("Starting SHOOTER scene");
+            currentScene = new scenes.Play();
+            console.log("Starting PLAY scene");
             break;
     }
 }

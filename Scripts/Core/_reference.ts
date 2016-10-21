@@ -20,4 +20,4 @@
 /// <reference path="../managers/collision.ts" />
 
 /// <reference path="../scenes/menu.ts" />
-/// <reference path="../scenes/shooter.ts" />
+/// <reference path="../scenes/play.ts" />

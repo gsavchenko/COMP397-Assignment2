@@ -30,11 +30,16 @@ var objects;
             for (var x = 0; x < this._meteorList.length; x++) {
                 this._meteorList[x].update();
                 if (this._meteorList[x].isDead) {
+                    // memory leak should be fixed lol
+                    currentScene.addChild(this._explosion = new objects.Explosion("explosion", this._meteorList[x].x, this._meteorList[x].y));
                     currentScene.removeChild(this._meteorList[x]);
                     this._meteorList.splice(x, 1);
                     this._createMeteor(1);
                 }
             }
+            this._meteorList.forEach(function (element) {
+                currentScene.addChild(element);
+            });
         };
         Meteor_Factory.prototype._createMeteor = function (amount) {
             for (var x = 0; x < amount; x++) {

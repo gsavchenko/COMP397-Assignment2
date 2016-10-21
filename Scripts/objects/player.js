@@ -19,7 +19,6 @@ var objects;
             this._isJumping = false;
             this.collideLeft = false;
             this.collideRight = false;
-            this._shots = [];
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             window.onkeydown = this._onKeyDown;
@@ -29,13 +28,6 @@ var objects;
             this.x = 320;
             this.y = 390;
         };
-        Object.defineProperty(Player.prototype, "getShots", {
-            get: function () {
-                return this._shots;
-            },
-            enumerable: true,
-            configurable: true
-        });
         Player.prototype.update = function () {
             _super.prototype.update.call(this);
             this._timer += createjs.Ticker.interval;
@@ -47,10 +39,6 @@ var objects;
             }
             if (controls.JUMP) {
                 this.jump();
-            }
-            for (var _i = 0, _a = this._shots; _i < _a.length; _i++) {
-                var laser = _a[_i];
-                laser.update();
             }
             if (!controls.LEFT && !controls.RIGHT && !controls.JUMP) {
                 this._leftAnimationStarted = false;

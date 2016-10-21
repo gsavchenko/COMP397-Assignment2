@@ -7,7 +7,8 @@ var config;
         function Scene() {
         }
         Scene.MENU = 0;
-        Scene.SHOOTER = 1;
+        Scene.PLAY = 1;
+        Scene.RULES = 2;
         return Scene;
     }());
     config.Scene = Scene;

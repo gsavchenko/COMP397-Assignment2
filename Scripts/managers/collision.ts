@@ -38,6 +38,15 @@ module managers {
             return(cornerDistance <= (objColliding.radius*objColliding.radius)); 
         }
 
+        public circleCircleCheck(coll:objects.Meteor, objColliding:objects.Moon){
+            var dx = coll.center.x - objColliding.center.x;
+            var dy = coll.center.y - objColliding.center.y;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+
+            if(distance < coll.radius + objColliding.radius)
+                return true;
+        }
+
         private destroy(objToDestroy : objects.GameObject) : void {
            // objToDestroy.destroy();
         }

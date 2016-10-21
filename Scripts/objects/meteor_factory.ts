@@ -3,9 +3,10 @@ module objects {
         
         // Public variables
         public _meteorList : objects.Meteor[];
-        public _meteor : objects.Meteor;
         public _amountOnScreen : number; // amount of meteors allowed on the screen at once
         public timer : number;
+
+        private _explosion : objects.Explosion;
         
         // Create moon from gameAtlas which stores animation frames
         constructor() {
@@ -25,6 +26,7 @@ module objects {
             this.timer = 0;
 
             this._createMeteor(this._amountOnScreen);
+
         }
          // this could be better (contines updating after scene switch and doesn't need to check death every frame)
         public update() : void {
@@ -36,11 +38,18 @@ module objects {
                 
                 if(this._meteorList[x].isDead)
                 {
+                    // memory leak should be fixed lol
+                    currentScene.addChild(this._explosion = new objects.Explosion("explosion", this._meteorList[x].x, this._meteorList[x].y));
+
                     currentScene.removeChild(this._meteorList[x]);
                     this._meteorList.splice(x,1);
                     this._createMeteor(1);                  
                 }
             }
+
+            this._meteorList.forEach(element => {
+                currentScene.addChild(element);
+            });
         }
 
         public _createMeteor(amount : number) : void{
@@ -52,7 +61,7 @@ module objects {
             }
         }
 
-    private _getRandNum(min : number, max : number) : number {
+        private _getRandNum(min : number, max : number) : number {
             return Math.floor(Math.random() * max) + min;
         }
     }

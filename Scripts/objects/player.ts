@@ -2,7 +2,6 @@ module objects {
     export class Player extends objects.GameObject {
 
         private _keyPressed : number;
-        private _shots : objects.Laser[];
 
         private _timeBetweenShots : number = 1;
         private _timer : number = 0;
@@ -25,8 +24,6 @@ module objects {
         constructor(imageString:string) {
             super(gameAtlas, imageString, "");
 
-            this._shots = [];
-
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
@@ -37,10 +34,6 @@ module objects {
         public start() {
             this.x = 320;
             this.y = 390;
-        }
-
-        get getShots() : objects.Laser[] {
-            return this._shots;
         }
 
         public update() : void {
@@ -57,10 +50,6 @@ module objects {
             }
             if(controls.JUMP ) {
                 this.jump();
-            }
-
-            for (let laser of this._shots) {
-                laser.update();
             }
 
             if(!controls.LEFT && !controls.RIGHT && !controls.JUMP){

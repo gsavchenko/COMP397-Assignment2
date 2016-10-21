@@ -15,21 +15,12 @@ var collision: managers.Collision;
 
 // Preload Assets required
 var assetData:objects.Asset[] = [
-    {id: "Game_BG", src:"../../Assets/images/game_background.png"},
-    {id: "Mouth_Lips", src:"../../Assets/images/mouth_lips.png"},
-    {id: "Mouth_Back", src:"../../Assets/images/mouth_back.png"},
-    {id: "Game_BG", src:"../../Assets/images/game_background.png"},
-    {id: "Menu_BG", src:"../../Assets/images/menu_background.png"},
+    {id: "Play_Button", src:"../../Assets/images/play_button.png"},
+    {id: "Rules_Button", src:"../../Assets/images/rules_button.png"},
     {id: "Menu_Button", src:"../../Assets/images/menu_button.png"},
-    {id: "Laser", src:"../../Assets/images/laser.png"},
-    {id: "Player", src:"../../Assets/images/shipAtlas.png"},
-    {id: "Teeth_Top_Back", src:"../../Assets/images/top_back.png"},
-    {id: "Teeth_Top_Middle", src:"../../Assets/images/top_middle.png"},
-    {id: "Teeth_Top_Front", src:"../../Assets/images/top_front.png"},
-    {id: "Teeth_Bottom_Back", src:"../../Assets/images/bottom_back.png"},
-    {id: "Teeth_Bottom_Middle", src:"../../Assets/images/bottom_middle.png"},
-    {id: "Teeth_Bottom_Front", src:"../../Assets/images/bottom_front.png"},
-    {id: "Cursor", src:"../../Assets/images/cursor.png"},
+    {id: "Rules", src:"../../Assets/images/instructions.png"},
+    {id: "Title_Image", src:"../../Assets/images/title.png"},
+    {id: "Gameover_Image", src:"../../Assets/images/gameover.png"},
     {id: "Spritesheet", src:"../../Assets/images/spritesheet.png"}
 ];
 
@@ -72,6 +63,7 @@ function init() {
             [317, 149, 93, 90, 0], // explosion 4
             [421, 164, 97, 69, 0], // explosion 5
             [529, 163, 71, 60, 0], // explosion 6
+            [555, 11, 1, 1, 0], // invisible frame cause no time
             [15, 245, 672, 163, 0] // moon
         ],
 
@@ -81,8 +73,8 @@ function init() {
             "player_move_left":{"frames":[2,0,3,0], "speed":0.2, "next":true}, // move left
             "player_move_right":{"frames":[3,0,2,0], "speed":0.2, "next":false}, // move right
             "meteor":{"frames":[4,5,6,7], "speed":0.2, "next":true}, // meteor
-            "explosion":{"frames":[8,9,10,11,12,13], "speed":0.2, "next":false}, // explosion
-            "moon":{"frames":[14]} // moon
+            "explosion":{"frames":[8,9,10,11,12,13,14], "speed":0.2, "next":false}, // explosion
+            "moon":{"frames":[15]} // moon
         },
 
         "texturepacker": [
@@ -113,10 +105,15 @@ function changeScene() : void {
             currentScene = new scenes.Menu();;
             console.log("Starting MENU scene");
             break;
-        case config.Scene.SHOOTER :
+        case config.Scene.PLAY :
             stage.removeAllChildren();
             currentScene = new scenes.Play();
             console.log("Starting PLAY scene");
+            break;
+        case config.Scene.RULES :
+            stage.removeAllChildren();
+            currentScene = new scenes.Rules();
+            console.log("Starting RULES scene");
             break;
     }
     

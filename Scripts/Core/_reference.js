@@ -10,11 +10,12 @@
 /// <reference path="../objects/enemy.ts" />
 /// <reference path="../objects/gameobject.ts" />
 /// <reference path="../objects/vector2.ts" />
-/// <reference path="../objects/laser.ts" />
+/// <reference path="../objects/explosion.ts" />
 /// <reference path="../objects/moon.ts" />
 /// <reference path="../objects/meteor.ts" />
 /// <reference path="../objects/meteor_factory.ts" />
 /// <reference path="../managers/collision.ts" />
 /// <reference path="../scenes/menu.ts" />
-/// <reference path="../scenes/play.ts" /> 
+/// <reference path="../scenes/play.ts" />
+/// <reference path="../scenes/rules.ts" /> 
 //# sourceMappingURL=_reference.js.map

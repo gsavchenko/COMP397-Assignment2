@@ -35,6 +35,13 @@ var managers;
             var cornerDistance = ((circleDistancex - coll.width / 2) * (circleDistancex - coll.width / 2)) + ((circleDistancey - coll.height / 2) * (circleDistancey - coll.height / 2));
             return (cornerDistance <= (objColliding.radius * objColliding.radius));
         };
+        Collision.prototype.circleCircleCheck = function (coll, objColliding) {
+            var dx = coll.center.x - objColliding.center.x;
+            var dy = coll.center.y - objColliding.center.y;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < coll.radius + objColliding.radius)
+                return true;
+        };
         Collision.prototype.destroy = function (objToDestroy) {
             // objToDestroy.destroy();
         };

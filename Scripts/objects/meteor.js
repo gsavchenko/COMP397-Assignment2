@@ -17,12 +17,14 @@ var objects;
             this.y = posY;
             this._speed = speed;
             this.isDead = false;
+            this.radius = 26;
             console.log("Meteor: " + this.id + " made");
             console.log("x: " + this.x + " y " + this.y + " speed: " + this._speed);
         }
         Meteor.prototype.update = function () {
-            console.log("update");
+            // console.log("update");
             this.y = this.y + this._speed;
+            this.center = new objects.Vector2(this.x, this.y);
             if (this.y > 580)
                 this.isDead = true;
         };

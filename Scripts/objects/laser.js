@@ -5,24 +5,24 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var objects;
 (function (objects) {
-    var Laser = (function (_super) {
-        __extends(Laser, _super);
-        function Laser() {
+    var Explosion = (function (_super) {
+        __extends(Explosion, _super);
+        function Explosion() {
             _super.call(this, "laser", "");
             this._speed = 15;
         }
-        Laser.prototype.start = function () {
+        Explosion.prototype.start = function () {
         };
-        Laser.prototype.update = function () {
+        Explosion.prototype.update = function () {
             _super.prototype.update.call(this);
             this.position.x += this._speed;
         };
-        Laser.prototype.setPosition = function (newPosition) {
+        Explosion.prototype.setPosition = function (newPosition) {
             this.position.x = newPosition.x;
             this.position.y = newPosition.y;
         };
-        return Laser;
+        return Explosion;
     }(objects.GameObject));
-    objects.Laser = Laser;
+    objects.Explosion = Explosion;
 })(objects || (objects = {}));
 //# sourceMappingURL=laser.js.map

@@ -10,7 +10,7 @@ module scenes {
         private _moon : objects.Moon; // Moon
         private _meteor : objects.Meteor; // Meteor
         private amountOnScreen : number = 3; // amount of meteors allowed on canvas at once
-        private _mf : objects.Meteor_Factory;
+        private _mf : objects.Meteor_Manager;
 
         private _menuBtn : objects.Button;
         private _rules : createjs.Bitmap;
@@ -23,7 +23,7 @@ module scenes {
         public start() : void {
             console.log("Rules Scene Started");
 
-            this._mf = new objects.Meteor_Factory();
+            this._mf = new objects.Meteor_Manager();
             this._mf._amountOnScreen = 4;
 
             // Add moon to menu scene

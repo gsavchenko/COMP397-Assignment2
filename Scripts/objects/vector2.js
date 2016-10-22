@@ -3,6 +3,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/*
+    Object module to group all user-defined objects under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          Vector2
+    Description:    Vector2 class extends a point object used to store the position associated with a particular vector.
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Removed empty updated() function
+*/
 var objects;
 (function (objects) {
     var Vector2 = (function (_super) {

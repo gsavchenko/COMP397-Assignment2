@@ -2,7 +2,6 @@
     Object module to group all user-defined objects under the same "namespace aka module"
     Button class extends the createjs bitmap class and provides a clean interface for creating clickable objects
 */
-
 module objects {
     export class Button extends createjs.Bitmap {
         width: number;

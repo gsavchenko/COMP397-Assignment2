@@ -3,6 +3,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/*
+    Object module to group all user-defined objects under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          GameObject
+    Description:    Explosion class extends Sprite class for animatating/managing in game objects.
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Added Comments and added more contextual variable names
+*/
 var objects;
 (function (objects) {
     var GameObject = (function (_super) {
@@ -53,28 +64,28 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(GameObject.prototype, "tr_corner", {
+        Object.defineProperty(GameObject.prototype, "topRightCorner", {
             get: function () {
                 return new objects.Vector2(this.x + this.width * 0.5, this.y - this.height * 0.5);
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(GameObject.prototype, "tl_corner", {
+        Object.defineProperty(GameObject.prototype, "topLeftCorner", {
             get: function () {
                 return new objects.Vector2(this.x - this.width * 0.5, this.y - this.height * 0.5);
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(GameObject.prototype, "br_corner", {
+        Object.defineProperty(GameObject.prototype, "bottomRightCorner", {
             get: function () {
                 return new objects.Vector2(this.x + this.width * 0.5, this.y + this.height * 0.5);
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(GameObject.prototype, "bl_corner", {
+        Object.defineProperty(GameObject.prototype, "bottomLeftCorner", {
             get: function () {
                 return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
             },

@@ -3,23 +3,26 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/*
+    Object module to group all user-defined objects under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          Explosion
+    Description:    Explosion class extends GameObject and creates explosion animation.
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Added Comments
+*/
 var objects;
 (function (objects) {
     var Explosion = (function (_super) {
         __extends(Explosion, _super);
         function Explosion(imageString, posX, posY) {
             _super.call(this, gameAtlas, imageString, "");
-            this._deathTimer = 0;
             this.x = posX;
             this.y = posY;
         }
-        Explosion.prototype.update = function () {
-            this._deathTimer += createjs.Ticker.interval;
-            console.log(this._deathTimer);
-            if (this.currentAnimationFrame == gameAtlas.getNumFrames("explode") - 1) {
-                currentScene.removeChild(this);
-            }
-        };
         return Explosion;
     }(objects.GameObject));
     objects.Explosion = Explosion;

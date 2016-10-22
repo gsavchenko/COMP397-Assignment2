@@ -1,21 +1,21 @@
+/*
+    Object module to group all user-defined objects under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          Explosion
+    Description:    Explosion class extends GameObject and creates explosion animation.
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Added Comments  
+*/
 module objects{
     export class Explosion extends objects.GameObject {
-
-        private _deathTimer : number = 0;
 
         constructor(imageString:string, posX : number, posY: number) {
             super(gameAtlas, imageString,"");
             this.x = posX;
             this.y = posY;
-        }
-
-        public update (){
-            this._deathTimer += createjs.Ticker.interval;
-            console.log(this._deathTimer);
-
-            if(this.currentAnimationFrame == gameAtlas.getNumFrames("explode") - 1){
-                currentScene.removeChild(this);
-            }
         }
     }
 }

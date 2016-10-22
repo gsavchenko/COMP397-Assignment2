@@ -18,7 +18,7 @@ var scenes;
         }
         Rules.prototype.start = function () {
             console.log("Rules Scene Started");
-            this._mf = new objects.Meteor_Factory();
+            this._mf = new objects.Meteor_Manager();
             this._mf._amountOnScreen = 4;
             // Add moon to menu scene
             this._moon = new objects.Moon("moon", 330, 500);

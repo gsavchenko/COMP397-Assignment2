@@ -1,3 +1,15 @@
+/*
+    Manager module to group all user-defined managers under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          Collision
+    Description:    Collision scene that implements the collision checks between sprites
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Added check between boxes/cicles and circles/circles
+
+*/
 var managers;
 (function (managers) {
     var Collision = (function () {
@@ -8,42 +20,45 @@ var managers;
         };
         Collision.prototype.update = function () {
         };
-        Collision.prototype.boxCheck = function (coll, objColliding) {
-            // Check distance between LASER and enemy
-            if (coll.tr_corner.x > objColliding.tl_corner.x &&
-                coll.tl_corner.x < objColliding.tr_corner.x &&
-                coll.tr_corner.y < objColliding.bl_corner.y &&
-                coll.br_corner.y > objColliding.tl_corner.y) {
-                return true; //this.destroy(objColliding);
+        // Check the collision between 2 box objects (add box object)
+        Collision.prototype.boxCheck = function (boxObjectOne, boxObjectTwo) {
+            if (boxObjectOne.topRightCorner.x > boxObjectTwo.topLeftCorner.x &&
+                boxObjectOne.topLeftCorner.x < boxObjectTwo.topRightCorner.x &&
+                boxObjectOne.topRightCorner.y < boxObjectTwo.bottomLeftCorner.y &&
+                boxObjectOne.bottomRightCorner.y > boxObjectTwo.topLeftCorner.y) {
+                return true;
             }
         };
-        Collision.prototype.boxCircleCheck = function (coll, objColliding) {
-            var circleDistancex = Math.abs(objColliding.center.x - coll.tl_corner.x);
-            var circleDistancey = Math.abs(objColliding.center.y - coll.tl_corner.y);
-            if (circleDistancex > (coll.width / 2 + objColliding.radius)) {
+        // Check the collision between a box object and circle object (added box/circle GameObjects)
+        Collision.prototype.boxCircleCheck = function (boxObject, circleObject) {
+            // Store magnitude of positions in x and y
+            var distanceX = Math.abs(circleObject.center.x - boxObject.topLeftCorner.x);
+            var distanceY = Math.abs(circleObject.center.y - boxObject.topLeftCorner.y);
+            var cornerDistance;
+            // Check distance to radius
+            if (distanceX > (boxObject.width / 2 + circleObject.radius))
                 return false;
-            }
-            if (circleDistancey > (coll.height / 2 + objColliding.radius)) {
+            if (distanceY > (boxObject.height / 2 + circleObject.radius))
                 return false;
-            }
-            if (circleDistancex <= (coll.width / 2)) {
+            if (distanceX <= (boxObject.width / 2))
                 return true;
-            }
-            if (circleDistancey <= (coll.height / 2)) {
+            if (distanceY <= (boxObject.height / 2))
                 return true;
-            }
-            var cornerDistance = ((circleDistancex - coll.width / 2) * (circleDistancex - coll.width / 2)) + ((circleDistancey - coll.height / 2) * (circleDistancey - coll.height / 2));
-            return (cornerDistance <= (objColliding.radius * objColliding.radius));
+            // Store magnitude of corner from radius (when corner and circle intersect)
+            cornerDistance = ((distanceX - boxObject.width / 2) * (distanceX - boxObject.width / 2)) + ((distanceY - boxObject.height / 2) * (distanceY - boxObject.height / 2));
+            // Check distance of corner from radius
+            return (cornerDistance <= (circleObject.radius * circleObject.radius));
         };
-        Collision.prototype.circleCircleCheck = function (coll, objColliding) {
-            var dx = coll.center.x - objColliding.center.x;
-            var dy = coll.center.y - objColliding.center.y;
-            var distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < coll.radius + objColliding.radius)
+        // Check the collision between two circle objects (add circle objects!!)
+        Collision.prototype.circleCircleCheck = function (circleObjectOne, circleObjectTwo) {
+            // Store magnitude of positions in x and y
+            var distanceX = circleObjectOne.center.x - circleObjectTwo.center.x;
+            var distanceY = circleObjectOne.center.y - circleObjectTwo.center.y;
+            // Store distance between circles
+            var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            // If distance between circles is greater than their combined radius then they are colliding
+            if (distance < circleObjectOne.radius + circleObjectTwo.radius)
                 return true;
-        };
-        Collision.prototype.destroy = function (objToDestroy) {
-            // objToDestroy.destroy();
         };
         return Collision;
     }());

@@ -186,7 +186,7 @@ declare namespace createjs {
         cursor: string;
         filters: Filter[];
         hitArea: DisplayObject;
-        id: number;
+        _id: number;
         mask: Shape;
         mouseEnabled: boolean;
         name: string;

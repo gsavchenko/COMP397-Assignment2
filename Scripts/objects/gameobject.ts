@@ -1,14 +1,26 @@
+/*
+    Object module to group all user-defined objects under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          GameObject
+    Description:    Explosion class extends Sprite class for animatating/managing in game objects.
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Added Comments and added more contextual variable names 
+*/
 module objects {
     export class GameObject extends createjs.Sprite {
+
+        // Private variables
         private _width:number;
         private _height:number;
         private _name:string;
         private _position:Vector2;
-
-        private _TRCorner:Vector2;
-        private _TLCorner:Vector2;
-        private _BRCorner:Vector2;
-        private _BLCorner:Vector2;
+        private _CornerTopRight:Vector2;
+        private _CornerTopLeft:Vector2;
+        private _CornerBottomRight:Vector2;
+        private _CornerBottomLeft:Vector2;
 
         // PUBLIC PROPERTIES
         get width() : number {
@@ -43,19 +55,19 @@ module objects {
             this._position = p;
         }
 
-        get tr_corner() : Vector2 {
+        get topRightCorner() : Vector2 {
             return new objects.Vector2(this.x + this.width * 0.5, this.y - this.height * 0.5);
         }
 
-        get tl_corner() : Vector2 {
+        get topLeftCorner() : Vector2 {
             return new objects.Vector2(this.x - this.width * 0.5, this.y - this.height * 0.5);
         }
 
-        get br_corner() : Vector2 {
+        get bottomRightCorner() : Vector2 {
             return new objects.Vector2(this.x + this.width * 0.5, this.y + this.height * 0.5);
         }
 
-        get bl_corner() : Vector2 {
+        get bottomLeftCorner() : Vector2 {
             return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
         }
 

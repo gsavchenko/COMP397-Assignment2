@@ -1,3 +1,15 @@
+/*
+    Manager module to group all user-defined managers under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          Collision
+    Description:    Collision scene that implements the collision checks between sprites
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/21/2016   Added check between boxes/cicles and circles/circles
+
+*/
 module managers {
     export class Collision {
         constructor() {
@@ -12,43 +24,51 @@ module managers {
 
         }
 
-        public boxCheck(coll:objects.GameObject, objColliding:objects.GameObject) {
-            // Check distance between LASER and enemy
-            
-            if(coll.tr_corner.x > objColliding.tl_corner.x &&
-                coll.tl_corner.x < objColliding.tr_corner.x &&
-                coll.tr_corner.y < objColliding.bl_corner.y &&
-                coll.br_corner.y > objColliding.tl_corner.y) {
-                    return true;//this.destroy(objColliding);
+        // Check the collision between 2 box objects (add box object)
+        public boxCheck(boxObjectOne:objects.GameObject, boxObjectTwo:objects.GameObject) {            
+            if(boxObjectOne.topRightCorner.x > boxObjectTwo.topLeftCorner.x &&
+                boxObjectOne.topLeftCorner.x < boxObjectTwo.topRightCorner.x &&
+                boxObjectOne.topRightCorner.y < boxObjectTwo.bottomLeftCorner.y &&
+                boxObjectOne.bottomRightCorner.y > boxObjectTwo.topLeftCorner.y) {
+                    return true;
             }
         }
 
-        public boxCircleCheck(coll:objects.GameObject, objColliding:objects.Moon){
-            var circleDistancex = Math.abs(objColliding.center.x - coll.tl_corner.x);
-            var circleDistancey = Math.abs(objColliding.center.y - coll.tl_corner.y);
+        // Check the collision between a box object and circle object (added box/circle GameObjects)
+        public boxCircleCheck(boxObject:objects.GameObject, circleObject:objects.Moon){
+            // Store magnitude of positions in x and y
+            var distanceX = Math.abs(circleObject.center.x - boxObject.topLeftCorner.x);
+            var distanceY = Math.abs(circleObject.center.y - boxObject.topLeftCorner.y);
+            var cornerDistance;
 
-            if (circleDistancex > (coll.width/2 + objColliding.radius)){return false;}
-            if (circleDistancey > (coll.height/2 + objColliding.radius)){return false;}
-
-            if (circleDistancex <= (coll.width/2)){return true;}
-            if (circleDistancey <= (coll.height/2)){return true;}
-
-            var cornerDistance = ((circleDistancex - coll.width/2)*(circleDistancex - coll.width/2)) + ((circleDistancey - coll.height/2)*(circleDistancey - coll.height/2));
-
-            return(cornerDistance <= (objColliding.radius*objColliding.radius)); 
-        }
-
-        public circleCircleCheck(coll:objects.Meteor, objColliding:objects.Moon){
-            var dx = coll.center.x - objColliding.center.x;
-            var dy = coll.center.y - objColliding.center.y;
-            var distance = Math.sqrt(dx * dx + dy * dy);
-
-            if(distance < coll.radius + objColliding.radius)
+            // Check distance to radius
+            if (distanceX > (boxObject.width/2 + circleObject.radius))
+                return false;
+            if (distanceY > (boxObject.height/2 + circleObject.radius))
+                return false;
+            if (distanceX <= (boxObject.width/2))
+               return true;
+            if (distanceY <= (boxObject.height/2))
                 return true;
+            
+            // Store magnitude of corner from radius (when corner and circle intersect)
+            cornerDistance = ((distanceX - boxObject.width/2)*(distanceX - boxObject.width/2)) + ((distanceY - boxObject.height/2)*(distanceY - boxObject.height/2));
+
+            // Check distance of corner from radius
+            return(cornerDistance <= (circleObject.radius*circleObject.radius)); 
         }
 
-        private destroy(objToDestroy : objects.GameObject) : void {
-           // objToDestroy.destroy();
+        // Check the collision between two circle objects (add circle objects!!)
+        public circleCircleCheck(circleObjectOne:objects.Meteor, circleObjectTwo:objects.Moon){
+            // Store magnitude of positions in x and y
+            var distanceX = circleObjectOne.center.x - circleObjectTwo.center.x;
+            var distanceY = circleObjectOne.center.y - circleObjectTwo.center.y;
+            // Store distance between circles
+            var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            // If distance between circles is greater than their combined radius then they are colliding
+            if(distance < circleObjectOne.radius + circleObjectTwo.radius)
+                return true;
         }
     }
 }

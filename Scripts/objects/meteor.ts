@@ -7,37 +7,32 @@
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments  
+    George Savchenko    10/28/2016   Removed _id that wasn't being used
 */
 module objects {
     export class Meteor extends objects.GameObject {
         
         // Public variables
         public isDead : boolean = false; // should the meteor be destroyed?
-        public radius : number = 26; // fix magic number
-        public center : objects.Vector2;
 
         // Private variables
-        private static _id : number = 0;
         private _speed : number = 4;
-
-        // Create meteor from gameAtlas which stores animation frames and store relevant information
+        private _explosion : objects.Explosion;
+        
+        // Create meteor from gameAtlas which stores animation frames
         constructor(imageString:string, posX : number, posY: number, speed : number) {
             super(gameAtlas, imageString, "");
-            this._id ++;
             this.x = posX;
             this.y = posY;
             this._speed = speed;
         }
 
-        // Update the meteor's position and center (for collision detectioni)
+        // Update the meteor's position
         public update() : void {
             this.y = this.y + this._speed;
-            this.center = new Vector2(this.x, this.y);
 
-            // If the meteor is off the screen destroy it
-            if(this.y > 580) // fix magic number
-                this.isDead = true;
+            if(this.y >= canvas.clientHeight)
+                this.isDead = true
         }        
     }
 }

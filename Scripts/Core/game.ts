@@ -63,8 +63,7 @@ function init() {
             [317, 149, 93, 90, 0], // explosion 4
             [421, 164, 97, 69, 0], // explosion 5
             [529, 163, 71, 60, 0], // explosion 6
-            [555, 11, 1, 1, 0], // invisible frame cause no time
-            [15, 245, 672, 163, 0] // moon
+            [0, 240, 710, 725, 0] // moon
         ],
 
         "animations": { // define animations
@@ -73,8 +72,8 @@ function init() {
             "player_move_left":{"frames":[2,0,3,0], "speed":0.2, "next":true}, // move left
             "player_move_right":{"frames":[3,0,2,0], "speed":0.2, "next":false}, // move right
             "meteor":{"frames":[4,5,6,7], "speed":0.2, "next":true}, // meteor
-            "explosion":{"frames":[8,9,10,11,12,13,14], "speed":0.2, "next":false}, // explosion
-            "moon":{"frames":[15]} // moon
+            "explosion":{"frames":[8,9,10,11,12,13], "speed":0.2, "next":false}, // explosion
+            "moon":{"frames":[14]} // moon
         },
 
         "texturepacker": [
@@ -89,7 +88,6 @@ function init() {
 }
 
 function gameLoop(event: createjs.Event): void {
-
     // Update whatever scene is currently active.
     currentScene.update();
     stage.update();
@@ -102,19 +100,18 @@ function changeScene() : void {
     {
         case config.Scene.MENU :
             stage.removeAllChildren();
-            currentScene = new scenes.Menu();;
+            currentScene = new scenes.Menu();
             console.log("Starting MENU scene");
             break;
-        case config.Scene.PLAY :
+        case config.Scene.WORLD :
             stage.removeAllChildren();
-            currentScene = new scenes.Play();
-            console.log("Starting PLAY scene");
+            currentScene = new scenes.World();
+            console.log("Starting WORLD scene");
             break;
         case config.Scene.RULES :
             stage.removeAllChildren();
             currentScene = new scenes.Rules();
             console.log("Starting RULES scene");
             break;
-    }
-    
+    } 
 }

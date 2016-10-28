@@ -7,7 +7,7 @@ var config;
         function Scene() {
         }
         Scene.MENU = 0;
-        Scene.PLAY = 1;
+        Scene.WORLD = 1;
         Scene.RULES = 2;
         return Scene;
     }());

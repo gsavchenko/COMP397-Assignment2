@@ -14,10 +14,10 @@
 /// <reference path="../objects/explosion.ts" />
 /// <reference path="../objects/moon.ts" />
 /// <reference path="../objects/meteor.ts" />
-/// <reference path="../objects/meteor_manager.ts" />
 
 /// <reference path="../managers/collision.ts" />
+/// <reference path="../managers/meteor_manager.ts" />
 
 /// <reference path="../scenes/menu.ts" />
-/// <reference path="../scenes/play.ts" />
+/// <reference path="../scenes/world.ts" />
 /// <reference path="../scenes/rules.ts" />

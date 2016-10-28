@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /*
-    Scene module to group all user-defined scenes  under the same "namespace aka module"
+    Scenes module to group all user-defined scenes  under the same "namespace aka module"
     ------------------------------------------------------------------------------------
     Class:          Menu
     Description:    Menu scene that contains all assets and functionality associated with the menu itself
@@ -12,8 +12,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Commented code
-
+    George Savchenko    10/28/2016   Refactored code to increase legibility and potentional issues
 */
 var scenes;
 (function (scenes) {
@@ -23,36 +22,32 @@ var scenes;
         function Menu() {
             _super.call(this);
         }
+        // Initialize variables
         Menu.prototype.start = function () {
-            // Create meteor factory
-            this._mm = new objects.Meteor_Manager();
-            this._mm._amountOnScreen = 4;
-            // Create moon
-            this._moon = new objects.Moon("moon", 330, 500);
-            // Create play button
+            console.log("Menu Scene Started");
             this._buttonPlay = new objects.Button("Play_Button", config.Screen.CENTER_X + 30, config.Screen.CENTER_Y - 100);
             this._buttonPlay.on("click", this._playButtonClick, this);
-            // Create rules button
             this._buttonRules = new objects.Button("Rules_Button", config.Screen.CENTER_X + 30, config.Screen.CENTER_Y - 16);
             this._buttonRules.on("click", this._rulesButtonClick, this);
-            // Create title image
             this._imageTitle = new createjs.Bitmap(assets.getResult("Title_Image"));
             this._imageTitle.x = config.Screen.CENTER_X - 100;
             this._imageTitle.y = -15;
-            // Add menu scene to global stage container
+            this._mm = new managers.Meteor_Manager(4);
+            this._mm.addToScene(this);
+            this._moon = new objects.Moon("moon");
+            // Add to global stage container in draw order
             stage.addChild(this);
+            stage.addChild(this._buttonPlay);
+            stage.addChild(this._buttonRules);
+            stage.addChild(this._moon);
+            stage.addChild(this._imageTitle);
         };
         Menu.prototype.update = function () {
-            // Draw scene objects in order
             this._mm.update();
-            this.addChild(this._moon);
-            this.addChild(this._buttonPlay);
-            this.addChild(this._buttonRules);
-            this.addChild(this._imageTitle);
         };
         // Play button handler method
         Menu.prototype._playButtonClick = function (event) {
-            scene = config.Scene.PLAY;
+            scene = config.Scene.WORLD;
             changeScene();
         };
         // Rules button handler method

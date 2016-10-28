@@ -12,34 +12,29 @@ var __extends = (this && this.__extends) || function (d, b) {
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments
+    George Savchenko    10/28/2016   Removed _id that wasn't being used
 */
 var objects;
 (function (objects) {
     var Meteor = (function (_super) {
         __extends(Meteor, _super);
-        // Create meteor from gameAtlas which stores animation frames and store relevant information
+        // Create meteor from gameAtlas which stores animation frames
         function Meteor(imageString, posX, posY, speed) {
             _super.call(this, gameAtlas, imageString, "");
             // Public variables
             this.isDead = false; // should the meteor be destroyed?
-            this.radius = 26; // fix magic number
+            // Private variables
             this._speed = 4;
-            this._id++;
             this.x = posX;
             this.y = posY;
             this._speed = speed;
         }
-        // Update the meteor's position and center (for collision detectioni)
+        // Update the meteor's position
         Meteor.prototype.update = function () {
             this.y = this.y + this._speed;
-            this.center = new objects.Vector2(this.x, this.y);
-            // If the meteor is off the screen destroy it
-            if (this.y > 580)
+            if (this.y >= canvas.clientHeight)
                 this.isDead = true;
         };
-        // Private variables
-        Meteor._id = 0;
         return Meteor;
     }(objects.GameObject));
     objects.Meteor = Meteor;

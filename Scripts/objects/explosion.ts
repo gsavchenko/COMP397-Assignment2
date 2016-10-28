@@ -7,11 +7,12 @@
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments  
+    George Savchenko    10/28/2016   Updated Comments  
 */
 module objects{
     export class Explosion extends objects.GameObject {
 
+        // Create explosion from gameAtlas which stores animation frames
         constructor(imageString:string, posX : number, posY: number) {
             super(gameAtlas, imageString,"");
             this.x = posX;

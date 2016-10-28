@@ -7,23 +7,18 @@
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments  
+    George Savchenko    10/28/2016   Updated comments and removed center variable
 */
 module objects {
     export class Moon extends objects.GameObject {
 
-        // Public variables
-        public radius : number; // 330
-        public center : objects.Vector2 = new Vector2(320, 5);
-
         // Create moon from gameAtlas which stores animation frames
-        constructor(imageString:string, posX:number, posY:number) {
+        // Position defaults so that it is shared between all moon objects unless
+        // specified otherwise
+        constructor(imageString:string, posX:number = 330, posY:number = 740) {
             super(gameAtlas, imageString, "");
             this.x = posX;
             this.y = posY;
-            // Collision information
-            this.center = new Vector2(320, 805);
-            this.radius = 400;
         }
     }
 }

@@ -10,9 +10,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     Description:    Explosion class extends Sprite class for animatating/managing in game objects.
     Author:         George Savchenko
     Revision History:
-    Name:               Date:        Description:
+    Name:               Date:       Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments and added more contextual variable names
+    George Savchenko    10/28/2016  Removed height, width, and position. Size is already
+                                    stored in getBounds() and position is stored is the
+                                    Sprite class as x and y.
 */
 var objects;
 (function (objects) {
@@ -20,26 +22,28 @@ var objects;
         __extends(GameObject, _super);
         function GameObject(atlas, imageString, deathAnimString) {
             _super.call(this, atlas, imageString);
+            // Private variables
+            this._name = "GameObject";
             this._initialize(imageString);
             this.start();
         }
         Object.defineProperty(GameObject.prototype, "width", {
             // PUBLIC PROPERTIES
             get: function () {
-                return this._width;
+                return this.getBounds().width;
             },
             set: function (w) {
-                this._width = w;
+                this.getBounds().width = w;
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(GameObject.prototype, "height", {
             get: function () {
-                return this._height;
+                return this.getBounds().height;
             },
             set: function (h) {
-                this._height = h;
+                this.getBounds().height = h;
             },
             enumerable: true,
             configurable: true
@@ -48,18 +52,8 @@ var objects;
             get: function () {
                 return this._name;
             },
-            set: function (s) {
-                this._name = s;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "position", {
-            get: function () {
-                return this._position;
-            },
-            set: function (p) {
-                this._position = p;
+            set: function (n) {
+                this._name = n;
             },
             enumerable: true,
             configurable: true
@@ -94,11 +88,8 @@ var objects;
         });
         GameObject.prototype._initialize = function (imageString) {
             this.name = imageString;
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
-            this.position = new objects.Vector2(this.x, this.y);
         };
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () { };

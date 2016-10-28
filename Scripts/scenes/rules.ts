@@ -1,19 +1,23 @@
 /*
-    Scene module to group all user-defined scenes  under the same "namespace aka module"
-    Menu scene that contains all assets and functionality associated with the menu itself
+    Scenes module to group all user-defined scenes  under the same "namespace aka module"
+    ------------------------------------------------------------------------------------
+    Class:          Rules
+    Description:    Rules scene that contains all assets for player instructions
+    Author:         George Savchenko
+    Revision History:
+    Name:               Date:        Description:
+    -----------------------------------------------------------------------------------
+    George Savchenko    10/28/2016   Refactored code to increase legibility and potentional issues
 */
 
 module scenes {
     export class Rules extends objects.Scene {
 
         // Private instance variables
+        private _menuBtn : objects.Button; // Menu button
+        private _rules : createjs.Bitmap; // Instructions
+        private _mm : managers.Meteor_Manager; // Meteor manager
         private _moon : objects.Moon; // Moon
-        private _meteor : objects.Meteor; // Meteor
-        private amountOnScreen : number = 3; // amount of meteors allowed on canvas at once
-        private _mf : objects.Meteor_Manager;
-
-        private _menuBtn : objects.Button;
-        private _rules : createjs.Bitmap;
 
         // Menu Class Contructor
         constructor() {
@@ -23,33 +27,29 @@ module scenes {
         public start() : void {
             console.log("Rules Scene Started");
 
-            this._mf = new objects.Meteor_Manager();
-            this._mf._amountOnScreen = 4;
-
-            // Add moon to menu scene
-            this._moon = new objects.Moon("moon", 330, 500);
-            this.addChild(this._moon);
+            this._menuBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X + 30, config.Screen.CENTER_Y + 150);
+            this._menuBtn.on("click", this._menuBtnClick, this);
 
             this._rules = new createjs.Bitmap(assets.getResult("Rules"));
 
+            this._mm = new managers.Meteor_Manager(4);
+            this._mm.addToScene(this);
 
-            this._menuBtn = new objects.Button("Menu_Button", config.Screen.CENTER_X + 30, config.Screen.CENTER_Y + 150);
-            this.addChild(this._menuBtn);
-            this._menuBtn.on("click", this.__menuBtnClick, this);
-
-            // Add menu scene to global stage container
+            this._moon = new objects.Moon("moon");
+            
+            // Add to global stage container in draw order
             stage.addChild(this);
+            stage.addChild(this._moon);
+            stage.addChild(this._rules);
+            stage.addChild(this._menuBtn);
         }
 
         public update() : void {
-            this._mf.update();
-
-            this.addChild(this._moon);
-            this.addChild(this._rules);
-            this.addChild(this._menuBtn);
+            this._mm.update();
         }
 
-        private __menuBtnClick(event : createjs.MouseEvent) {
+        // Menu button method
+        private _menuBtnClick(event : createjs.MouseEvent) {
             scene = config.Scene.MENU;
             changeScene();
         }

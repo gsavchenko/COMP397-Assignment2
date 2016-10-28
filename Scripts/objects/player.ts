@@ -7,19 +7,16 @@
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments and delete uncesseary information
+    George Savchenko    10/28/2016   Updated Comments and deleted uncesseary information
 */
 module objects {
     export class Player extends objects.GameObject {
 
         // Public variables
-        public name:string;
-        public width:number;
-        public height:number;
         // Track walking into the moon
         public collideLeft : boolean = false;
         public collideRight : boolean = false;
-        //Jumping time
+        // Jumping timer
         public _jumpTimer : number = 0;
 
         // Private variables
@@ -35,9 +32,6 @@ module objects {
         constructor(imageString:string) {
             super(gameAtlas, imageString, "");
 
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-
             window.onkeydown = this._onKeyDown;
             window.onkeyup = this._onKeyUp;
         }
@@ -45,11 +39,12 @@ module objects {
         // Set initial position of player
         public start() {
             this.x = 320;
-            this.y = 390;
+            this.y = 300;
         }
 
         // Check for input and update player
         public update() : void {
+
             super.update();
 
             // Check for input controls
@@ -89,6 +84,7 @@ module objects {
                     break;
             }
         }
+
         // Check which keys have been pressed
         private _onKeyUp(event : KeyboardEvent) {
              switch(event.keyCode) {
@@ -113,7 +109,7 @@ module objects {
             }
             // Check collision with moon
             if(this.collideLeft){
-                this.x -= 5; // Fix magic numbers (movement speed)
+                this.x -= 5;
                 this.y -= 4;
             }
             else
@@ -129,7 +125,7 @@ module objects {
             }
             // Check collision with moon
             if(this.collideRight){
-                this.x += 5; // Fix magic numbers (movement speed)
+                this.x += 5;
                 this.y -= 4;
             }
             else
@@ -142,7 +138,7 @@ module objects {
             {
                 this._jumpTimer ++;
                 this.gotoAndPlay("player_jump");
-                this.y -= 8; // Fix magic number (movement speed)
+                this.y -= 8;
             }            
         }
     }

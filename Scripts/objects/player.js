@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments and delete uncesseary information
+    George Savchenko    10/28/2016   Updated Comments and deleted uncesseary information
 */
 var objects;
 (function (objects) {
@@ -20,10 +20,11 @@ var objects;
         __extends(Player, _super);
         function Player(imageString) {
             _super.call(this, gameAtlas, imageString, "");
+            // Public variables
             // Track walking into the moon
             this.collideLeft = false;
             this.collideRight = false;
-            //Jumping time
+            // Jumping timer
             this._jumpTimer = 0;
             // Private variables
             // Track animations
@@ -34,15 +35,13 @@ var objects;
             this._falling = true;
             // Track jumping
             this._isJumping = false;
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
             window.onkeydown = this._onKeyDown;
             window.onkeyup = this._onKeyUp;
         }
         // Set initial position of player
         Player.prototype.start = function () {
             this.x = 320;
-            this.y = 390;
+            this.y = 300;
         };
         // Check for input and update player
         Player.prototype.update = function () {
@@ -103,7 +102,7 @@ var objects;
             }
             // Check collision with moon
             if (this.collideLeft) {
-                this.x -= 5; // Fix magic numbers (movement speed)
+                this.x -= 5;
                 this.y -= 4;
             }
             else
@@ -117,7 +116,7 @@ var objects;
             }
             // Check collision with moon
             if (this.collideRight) {
-                this.x += 5; // Fix magic numbers (movement speed)
+                this.x += 5;
                 this.y -= 4;
             }
             else
@@ -128,7 +127,7 @@ var objects;
             if (this._jumpTimer <= 25) {
                 this._jumpTimer++;
                 this.gotoAndPlay("player_jump");
-                this.y -= 8; // Fix magic number (movement speed)
+                this.y -= 8;
             }
         };
         return Player;

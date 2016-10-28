@@ -12,12 +12,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     Revision History:
     Name:               Date:        Description:
     -----------------------------------------------------------------------------------
-    George Savchenko    10/21/2016   Added Comments
+    George Savchenko    10/28/2016   Updated Comments
 */
 var objects;
 (function (objects) {
     var Explosion = (function (_super) {
         __extends(Explosion, _super);
+        // Create explosion from gameAtlas which stores animation frames
         function Explosion(imageString, posX, posY) {
             _super.call(this, gameAtlas, imageString, "");
             this.x = posX;
